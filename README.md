@@ -1,121 +1,121 @@
-# OopsHunter - Application Web de détection de fuites de données
+# OopsHunter - Web Application for Data Leak Detection
 
-## Contexte du Projet
+## Project Context
 
-Il est important de noter que **OopsHunter est un projet universitaire** réalisé en groupe dans le cadre d'un projet de première année à Telecom Nancy. L'application a été développée en équipe, et les tâches ont été réparties entre les membres.
+It is important to note that **OopsHunter is a university project** carried out in a group as part of a first-year project at Telecom Nancy. The application was developed as a team, and tasks were distributed among the members.
 
-Ma contribution personnelle s'est concentrée sur les aspects suivants :
+My personal contribution focused on the following aspects:
 
-*   **Système d'authentification** : Mise en place de la logique de connexion et de la protection des routes.
-*   **Logique d'analyse et rapports** : Développement du lien entre le backend et le frontend pour le traitement des analyses et l'affichage des rapports de fuites de données.
-*   **Base de données** : Participation à la conception et à l'intégration de la base de données.
-*   **Correctifs divers** : Application de multiples corrections sur l'ensemble du projet pour en assurer la stabilité.
+*   **Authentication System**: Implementation of the login logic and route protection.
+*   **Analysis Logic and Reports**: Development of the link between the backend and the frontend for processing analyses and displaying data leak reports.
+*   **Database**: Participation in the design and integration of the database.
+*   **Various Fixes**: Application of multiple corrections throughout the project to ensure its stability.
 
 ---
 
-OopsHunter est une application web conçue pour aider les entreprises à détecter les fuites de données sensibles au sein de leurs documents. Les utilisateurs peuvent téléverser des fichiers de divers formats (tels que `.pdf`, `.xlsx`, `.txt`, `.docx`) et obtenir en un clic des rapports d'analyse détaillés.
+OopsHunter is a web application designed to help companies detect sensitive data leaks within their documents. Users can upload files in various formats (such as `.pdf`, `.xlsx`, `.txt`, `.docx`) and obtain detailed analysis reports with a single click.
 
-Le nom "OopsHunter" vient de l'idée de "chasser" (Hunter) les erreurs humaines ("Oops") qui mènent à la divulgation involontaire d'informations confidentielles.
+The name "OopsHunter" comes from the idea of "hunting" (Hunter) for human errors ("Oops") that lead to the unintentional disclosure of confidential information.
 
-## Fonctionnalités
+## Features
 
-*   **Analyse de documents** : Détecte une variété de données sensibles comme les numéros de carte bancaire, de téléphone, les adresses e-mail, etc.
-*   **Rapports détaillés** : Génère des rapports clairs indiquant le type de données qui ont fuité et les données exactes concernées.
-*   **Historique des analyses** : Conserve un historique de toutes les analyses effectuées pour un suivi aisé.
-*   **Gestion des documents** : Permet de visualiser, filtrer, ajouter et supprimer les documents téléversés.
-*   **Panneau d'administration** : Une section est dédiée à la gestion des informations des employés (utilisateurs), avec la possibilité de calculer un score de risque de fuite de données pour chacun.
+*   **Document Analysis**: Detects a variety of sensitive data such as credit card numbers, phone numbers, email addresses, etc.
+*   **Detailed Reports**: Generates clear reports indicating the type of data that has leaked and the exact data concerned.
+*   **Analysis History**: Keeps a history of all analyses performed for easy tracking.
+*   **Document Management**: Allows viewing, filtering, adding, and deleting uploaded documents.
+*   **Admin Panel**: A section is dedicated to managing employee (user) information, with the ability to calculate a data leak risk score for each.
 
-## Explications Techniques
+## Technical Explanations
 
 ### Backend
 
-L'application est développée avec le framework **Flask** en Python. La structure du projet est organisée en **Blueprints** pour séparer logiquement les différentes fonctionnalités (authentification, gestion des documents, analyses, etc.). Les requêtes à la base de données sont isolées dans un répertoire `queries/` et utilisent le module `sqlite3`.
+The application is developed with the **Flask** framework in Python. The project structure is organized into **Blueprints** to logically separate the different functionalities (authentication, document management, analyses, etc.). Database queries are isolated in a `queries/` directory and use the `sqlite3` module.
 
-Un système d'authentification simple basé sur les sessions Flask et un décorateur `@login_required` sécurise l'accès aux différentes parties de l'application.
+A simple authentication system based on Flask sessions and a `@login_required` decorator secures access to the different parts of the application.
 
-### Base de Données
+### Database
 
-Nous utilisons **SQLite** comme système de gestion de base de données. Le schéma a été conçu pour être flexible, notamment grâce à une table `DATA_TYPE` qui permet d'ajouter de nouveaux types de données à rechercher (via des expressions régulières ou des mots-clés) sans avoir à modifier le code source de l'application.
+We use **SQLite** as the database management system. The schema was designed to be flexible, notably thanks to a `DATA_TYPE` table that allows adding new types of data to search for (via regular expressions or keywords) without having to modify the application's source code.
 
-### Algorithmes de Détection
+### Detection Algorithms
 
-Pour "chasser" les données sensibles, OopsHunter combine plusieurs techniques :
+To "hunt" for sensitive data, OopsHunter combines several techniques:
 
-*   **Recherche par mots-clés** : Recherche des chaînes de caractères connues (noms, prénoms, etc.).
-*   **Expressions Régulières** : Pour identifier des formats de données spécifiques comme les e-mails, IBAN, ou numéros de sécurité sociale.
-*   **Bibliothèques spécialisées** :
-    *   `phonenumbers` pour la détection et la validation de numéros de téléphone.
-    *   L'algorithme de **Luhn** pour valider la syntaxe des numéros de carte bancaire.
-*   **OCR** : La bibliothèque `pytesseract` est utilisée pour extraire le texte des fichiers PDF non lisibles nativement.
+*   **Keyword Search**: Searches for known character strings (names, first names, etc.).
+*   **Regular Expressions**: To identify specific data formats such as emails, IBANs, or social security numbers.
+*   **Specialized Libraries**:
+    *   `phonenumbers` for the detection and validation of phone numbers.
+    *   The **Luhn** algorithm to validate the syntax of credit card numbers.
+*   **OCR**: The `pytesseract` library is used to extract text from non-natively readable PDF files.
 
 ### Frontend
 
-L'interface utilisateur est construite en **HTML** et stylisée avec le framework **Bootstrap** pour une expérience utilisateur simple et efficace.
+The user interface is built in **HTML** and styled with the **Bootstrap** framework for a simple and effective user experience.
 
-## Comment exécuter le projet
+## How to run the project
 
-### 1. Prérequis
+### 1. Prerequisites
 
 *   Python 3.x
 *   Pip
 *   SQLite3
-*   Tesseract OCR : Suivez la [documentation officielle](https://tesseract-ocr.github.io/tessdoc/Installation.html) pour l'installer sur votre système.
+*   Tesseract OCR: Follow the [official documentation](https://tesseract-ocr.github.io/tessdoc/Installation.html) to install it on your system.
 
 ### 2. Installation
 
-Clonez ce dépôt et naviguez dans le répertoire du projet :
+Clone this repository and navigate into the project directory:
 
 ```bash
 git clone https://github.com/silverdakid/oopshunter.git
 cd oopshunter
 ```
 
-Créez et activez un environnement virtuel :
+Create and activate a virtual environment:
 
 ```bash
 python -m venv venv
 source venv/bin/activate
 ```
-*Sur Windows, utilisez `venv\Scripts\activate`.*
+*On Windows, use `venv\Scripts\activate`.*
 
-Installez les dépendances nécessaires :
+Install the necessary dependencies:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 3. Base de données
+### 3. Database
 
-Un fichier de base de données `oopshunter.db` est fourni pour les tests. Si vous devez (ré)initialiser la base de données, vous pouvez utiliser le fichier `backup.sql` avec la commande suivante :
+A database file `oopshunter.db` is provided for testing. If you need to (re)initialize the database, you can use the `backup.sql` file with the following command:
 
 ```bash
 sqlite3 oopshunter.db < bdd/backup.sql
 ```
 
-### 4. Lancement de l'application
+### 4. Launching the application
 
-Lancez l'application avec Flask :
+Launch the application with Flask:
 
 ```bash
 flask --app index run
 ```
 
-L'application sera alors accessible à l'adresse [http://127.0.0.1:5000](http://127.0.0.1:5000).
+The application will then be accessible at [http://127.0.0.1:5000](http://127.0.0.1:5000).
 
-### 5. Utilisation
+### 5. Usage
 
-Une fois l'application lancée, vous pouvez vous connecter avec les comptes de test suivants :
+Once the application is launched, you can log in with the following test accounts:
 
-*   **Compte 1 :**
-    *   **Email** : `antoine.delacroix@gmail.com`
-    *   **Mot de passe** : `password`
-*   **Compte 2 :**
-    *   **Email** : `marie.dubois@gmail.com`
-    *   **Mot de passe** : `securepass`
+*   **Account 1:**
+    *   **Email**: `antoine.delacroix@gmail.com`
+    *   **Password**: `password`
+*   **Account 2:**
+    *   **Email**: `marie.dubois@gmail.com`
+    *   **Password**: `securepass`
 
-Vous pourrez ensuite :
-1.  Ajouter un document à analyser.
-2.  Cliquer sur le bouton "Analyze" pour lancer la détection.
-3.  Consulter le résultat de l'analyse.
-4.  Voir l'historique des analyses précédentes.
-5.  Accéder à la partie administration pour gérer les comptes et les types de données sensibles.
+You will then be able to:
+1.  Add a document to analyze.
+2.  Click on the "Analyze" button to start the detection.
+3.  Consult the result of the analysis.
+4.  View the history of previous analyses.
+5.  Access the administration part to manage accounts and types of sensitive data.
