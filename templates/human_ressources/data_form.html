@@ -1,0 +1,43 @@
+{%extends 'index.html'%}
+
+{%block body%}
+<form method="POST" action="
+{% if data_type %}
+    {{ url_for('hr_controller.update_data_form', id=data_type.id_data_type) }}
+{% else %}
+    {{ url_for('hr_controller.add_data_type') }}
+{% endif %}">
+
+    <fieldset>
+        <div>
+            <label for="Function name">Name :</label>
+            <input id="Function name" type="text" name="type_name" value="{% if data_type %}{{ data_type.type_name }}{% endif %}">
+        </div>
+
+        
+        <div>
+            <label for="algorithm_name">Algorithm Name:</label>
+            <select id="algorithm_name" name="algorithm_name" required>
+                <option value="">Select an algorithm</option>
+                {% for algorithm in algorithms %}
+                    <option 
+                        value="{{ algorithm.algorithm_name }}" 
+                        {% if data_type and data_type.algorithm_name == algorithm.algorithm_name %} 
+                            selected 
+                        {% endif %}>
+                        {{ algorithm.algorithm_name }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+
+        <div>
+            <label for="parameter">Parameter :</label>
+            <input id="parameter" type="text" name="parameter" value="{% if data_type %}{{ data_type.parameter }}{% endif %}">
+        </div>
+   
+        <button type="submit">Submit</button>
+    </fieldset>
+</form>
+{%endblock%}

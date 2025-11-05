@@ -1,0 +1,34 @@
+{%extends 'index.html'%}
+
+{%block body%}
+<form method="POST" action="add_data_type">
+    <fieldset>
+        <div>
+            <label for="name">Name :</label>
+            <input id="name" type="text" name="type_name" value="{{data_type.type_name}}">
+        </div>
+
+        <div>
+            <label for="Function name">Function name  :</label>
+            <select id="Algorithm name" name="algorithm_name" required>
+                <option value="" >
+                    Select Function name
+                </option>
+                {% for Function in algorithm_names %}
+                    <option value="{{ Function.algorithm_name }}"
+                    {% if Function.algorithm_name = algorithm_names.algorithm_name %}
+                    selected
+                {% endif %} >{{Function.algorithm_name}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        
+        <div>
+            <label for="parameter">Parameter :</label>
+            <input id="parameter" type="text" name="parameter" value="{{data_type.parameter}}">
+        </div>
+
+        <button type="submit">Submit</button>
+    </fieldset>
+</form>
+{%endblock%} 

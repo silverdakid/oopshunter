@@ -1,0 +1,31 @@
+{%extends 'index.html'%}
+
+{%block body%}
+<form method="POST" action="add_data_type">
+    <fieldset>
+        <div>
+            <label for="name">Name :</label>
+            <input id="name" type="text" name="type_name" value="{{type_name}}">
+        </div>
+
+        <div>
+            <label for="Function name">Fonction name  :</label>
+            <select id="Function name" name="algorithm_name" required>
+                <option value="">
+                    Select Function name
+                </option>
+                {% for Function in algorithm_names %}
+                    <option value="{{ Function.algorithm_name }}">{{Function.algorithm_name}}</option>
+                {% endfor %}
+            </select>
+        </div>      
+
+        <div>
+            <label for="parameter">Parameter :</label>
+            <input id="parameter" type="text" name="parameter" value="{{parameter}}">
+        </div>
+
+        <button type="submit">Submit</button>
+    </fieldset>
+</form>
+{%endblock%} 

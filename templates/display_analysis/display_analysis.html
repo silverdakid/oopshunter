@@ -1,0 +1,51 @@
+{% extends "index.html" %}
+
+{% block body %}
+<div class="container py-4">
+    <div class="mb-4">
+        <a href="{{ url_for('document_controller.show_document') }}" class="btn btn-return">
+            <i class="bi bi-arrow-left"></i> Go back to documents list
+        </a>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-header">
+            <div class="d-flex justify-content-between align-items-center">
+                <h1 class="h4 mb-0">{{ document.title }}</h1>
+                <div>
+                    <span class="text-white">{{ analysis.title }}</span>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <p class="text-muted mb-1">Type : {{ document.type }}</p>
+            <p class="text-muted mb-1">Author : {{ document.author }}</p>
+            <div class="d-flex justify-content-between align-items-center">
+                <small class="text-muted">Analysis Date :  {{ analysis.date }}</small>
+                <span class="badge bg-danger">{{ leaks|length }} Leak{% if leaks|length > 1 %}s{% endif %} found{% if leaks|length <= 1 %}s{% endif %}</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0">
+                <thead>
+                    <tr>
+                        <th>Data Type</th>
+                        <th>Data found</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for leak in leaks %}
+                    <tr>
+                        <td class="fw-medium">{{ leak.type }}</td>
+                        <td>{{ leak.data }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,87 @@
+{%extends 'index.html'%}
+
+{%block body%}
+<form method="POST" action="
+{% if id_employee %}
+    {{ url_for('hr_controller.update_employee', id_employee=id_employee) }}
+{% else %}
+    {{ url_for('hr_controller.add_employee') }}
+{% endif %}"
+style="padding-left: 30%;">
+    <fieldset>
+        <div class="mb-4">
+            <label for="firstname" class="mb-1">First name</label>
+            <input id="firstname" type="text" name="firstname" value="{{ firstname }}" class="form-control w-50" required>
+        </div>
+
+        <div class="mb-4">
+            <label for="lastname" class="mb-1">Last name</label>
+            <input id="lastname" type="text" name="lastname" value="{{ lastname }}" class="form-control w-50" required>
+        </div>
+    
+        <div class="mb-4">
+            <label for="birthday" class="mb-1">Birthday</label>
+            <input id="birthday" type="date" name="birthday" value="{{ birthday }}" class="form-control w-50" required>
+        </div>       
+
+        <div class="mb-4">
+            <label for="address" class="mb-1">Address</label>
+            <input id="address" type="text" name="address" value="{{ address }}" class="form-control w-50" required>
+        </div>
+
+        <div class="mb-4">
+            <label for="mail" class="mb-1">Mail</label>
+            <input id="mail" type="email" name="mail" value="{{ mail }}" class="form-control w-50" required>
+        </div>
+        
+        <div class="mb-4">
+            <label for="phone" class="mb-1">Phone</label>
+            <input id="phone" type="text" name="phone" value="{{ phone }}" class="form-control w-50" required>
+        </div>
+        
+        <div class="mb-4">
+            <label for="password" class="mb-1">Password</label>
+            <input id="password" type="text" name="password" value="{{ password }}" class="form-control w-50" required>
+        </div>
+        
+        <div class="mb-4">
+            <label for="department_name" class="mb-1">Department</label>
+            <select id="department_name" name="id_department" class="form-control w-50" required>
+                <option value="">
+                    Select department
+                </option>
+                {% for department in departments %}
+                    <option
+                        value="{{ department.id_department }}"
+                        {% if id_department == department.id_department %}
+                            selected
+                        {% endif %}
+                    >
+                        {{department.department_name}}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="mb-4">
+            <label for="location_name" class="mb-1">Location</label>
+            <select id="location_name" name="id_location" class="form-control w-50" required>
+                <option value="">
+                    Select location
+                </option>
+                {% for location in locations %}
+                    <option
+                        value="{{ location.id_location }}"
+                        {% if id_location == location.id_location %}
+                            selected
+                        {% endif %}
+                    >
+                        {{location.location_name}}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+        <button type="submit" class="btn w-50 btn-submit">Submit</button>
+    </fieldset>
+</form>
+{%endblock%}

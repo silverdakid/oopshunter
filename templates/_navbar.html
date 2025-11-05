@@ -1,0 +1,57 @@
+<nav class="navbar-expand-lg mb-5 text-center">
+    <div class="h-50 p-3 w-100 navbar">
+        <a
+            href="/"
+            class="d-none d-lg-block m-1 text-decoration-none"
+            data-bs-target="#navbarNav">
+            <strong>
+                OopsHunter
+            </strong>
+        </a>
+        <a
+            href="/"
+            class="navbar-brand navbar-toggler m-1 text-decoration-none"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav">
+            <strong>
+                OopsHunter
+            </strong>
+        </a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="d-lg-none d-block m-2 nav-item">
+                    <a href="/" class="text-decoration-none">Home</a>
+                </li>
+                <li class="m-2 nav-item">
+                    <a href="/document/show" class="text-decoration-none">My documents</a>
+                </li>
+                <li class="m-2 nav-item">
+                    <a href="/analysis_history" class="text-decoration-none">Analysis history</a>
+                </li>
+                <li class="m-2 nav-item">
+                    <a href="/human_ressource" class="text-decoration-none">Administrate</a>
+                </li>
+                <li class="m-2 nav-item">
+                    <a href="/logout" class="text-decoration-none">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        <div class="d-flex justify-content-center">
+            {% for category, message in messages %}
+            <div class="alert alert-{{ 'danger' if category == 'error' else 'success' }} alert-dismissible fade show w-75" role="alert">
+                <p class="mb-0">{{ 'An error occurred! ' if category == 'error' else 'Success! ' }} <strong>{{ message }}</strong></p>
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="alert"
+                    aria-label="Close"></button>
+            </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endwith %}

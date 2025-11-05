@@ -1,0 +1,101 @@
+{% extends "index.html" %}
+
+{% block body %}
+    {% include('document/modal_add.html') %}
+    {% include('document/modal_filter.html') %}
+
+    <div class="row g-3 mb-4">
+        <div class="d-flex align-items-center col-12 col-lg-4">
+            <h3><strong>{{ len }} documents</strong></h3>
+            <button
+                class="btn btn-outline-secondary btn-sm ms-3"
+                data-bs-toggle="modal"
+                data-bs-target="#filterDocumentModal">
+                <i class="bi bi-filter"></i>
+                Filters
+            </button>
+        </div>
+        <div class="col-6 col-lg-4">
+            <form action="{{ url_for('document_controller.show_document') }}" method="GET">
+                <div class="input-group">
+                    <input
+                        type="text"
+                        name="search"
+                        placeholder="Search for documents" 
+                        class="form-control rounded-pill rounded-end"
+                        value="{{ search_query if search_query }}" />
+                    <button type="submit" class="btn btn-outline-secondary rounded-pill rounded-start">
+                        <i class="bi bi-search"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+        <div class="col-6 col-lg-4 text-end">
+            <button
+                class="btn btn-success btn-sm"
+                data-bs-toggle="modal"
+                data-bs-target="#addDocumentModal">
+                <i class="bi bi-plus-circle"></i>
+                Add a document
+            </button>
+        </div>
+    </div>
+
+    <div class="row gx-4 gy-4 mb-4">
+        {% if len== 0 %}
+            <div class="text-center mt-5">
+                <p class="mb-2"><strong>No results</strong></p>
+                <p>Change or remove some of your filters</p>
+            </div>
+        {% endif %}
+        {% for document in documents %}
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                <div class="card h-100 rounded shadow-sm">
+                    <div class="d-flex justify-content-end">
+                        <form
+                            method="post"
+                            action="{{ url_for('document_controller.download_document') }}">
+                            <fieldset>
+                                <input type="text" name="filename" value="{{ document.title }}" hidden>
+                                <button
+                                    type="submit"
+                                    class="btn btn-sm text-success rounded-circle">
+                                    <i class="bi bi-download"></i>
+                                </button>
+                            </fieldset>
+                        </form>
+                        <a
+                            href="{{ url_for('document_controller.delete_document', filename=document.title) }}"
+                            class="btn btn-sm text-danger rounded-circle">
+                            <i class="bi bi-trash-fill"></i>
+                        </a>
+                    </div>
+                    <div class="card-body text-center pt-0">
+                        <img
+                            src="{{ url_for('static', filename='images/' + document.type.replace('.', '').lower() + '.png') }}"
+                            alt="{{ document.type }}"
+                            class="img-fluid"
+                            style="max-height: 130px;">
+                        <h5 class="card-title mt-1">{{ document.title }}</h5>
+                        <form action="{{ url_for('analysis_controller.analyse_document') }}" method="post" style="display: inline;">
+                            <input type="hidden" name="path" value="{{ document.path }}">
+                            <input type="hidden" name="id" value="{{ document.id_document }}">
+                            <button type="submit" class="btn btn-success btn-sm mt-3 rounded-pill w-100">Analyze</button>
+                         </form>
+                         {% if document.analysis %}
+                         <a href="{{ url_for('analysis.show_analysis', analysis_id=document.last_analysis_id) }}"
+                            class="btn btn-outline-success btn-sm mt-2 rounded-pill w-100">
+                             View Last Analysis
+                         </a>
+                     {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <script>
+        document.getElementById("search_input").addEventListener("input", function () {
+            document.getElementById("search_form").submit();
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,82 @@
+/* body {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    background-color: rgb(255, 255, 255);
+    height: 100%;
+    position: relative;
+} */
+
+.navbar,
+.navbar a,
+.navbar a:hover {
+    background: #1A6085;
+    color: #ffff;
+    font-size: 1.2rem;
+}
+
+.table>:not(caption)>*>* {
+    border-bottom-width: 0px !important;
+}
+
+thead {
+    background: #1A6085;
+    color: #ffff;
+}
+.card-header {
+    background-color: #1A6085;
+    color: white;
+}
+
+.table thead {
+    background-color: #1A6085;
+    color: white;
+}
+
+.table-hover tbody tr:hover {
+    background-color: rgba(26, 96, 133, 0.05);
+}
+
+.card {
+    border: none;
+    margin-bottom: 20px;
+}
+
+.btn-return {
+    background-color: white;
+    color: #1A6085;
+    border: 1px solid #1A6085;
+}
+
+.btn-return:hover {
+    background-color: #1A6085;
+    color: white;
+}
+
+
+.home-img {
+    border-top-left-radius: 40px;
+    border-bottom-left-radius: 40px;
+    object-fit: cover;
+    width: 58.33333333%;
+}
+
+.btn-login,
+.btn-login:hover {
+    background: #1A6085;
+    color: #ffff;
+}
+.p-error-status {
+    color: #1A6085;
+    font-size: 10em;
+    line-height: 1.2;
+}
+
+.fs-4 {
+    color: #455a64
+
+}
+
+.btn-submit,
+.btn-submit:hover {
+    background: #1A6085;
+    color: #ffff;
+}

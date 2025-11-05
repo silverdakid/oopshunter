@@ -1,0 +1,135 @@
+<div class="modal fade" id="filterDocumentModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Filter</h1>
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close">
+                </button>
+            </div>
+            <form method="post" action="/document/filter?search_input={{ selected_search_input }}">
+                <fieldset>
+                    <div class="modal-body">
+                        <div class="row align-items-center g-3 mb-4">
+                            <label for="date" class="col-12 col-md-4">
+                                <strong>
+                                    Date (start - end)
+                                </strong>
+                            </label>
+                            <div class="col-12 col-md-4">
+                                <input
+                                    id="date"
+                                    type="date"
+                                    name="start_date"
+                                    value="{{ selected_start_date }}"
+                                    class="form-control">
+                            </div>
+                            <div class="col-12 col-md-4">
+                                <input
+                                    id="date"
+                                    type="date"
+                                    name="end_date"
+                                    value="{{ selected_end_date }}"
+                                    class="form-control">
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-start mb-4">
+                            <label for="sensitive_data" class="col-4"><strong>Sensitive data</strong></label>
+                            <div class="col-8 ms-3">
+                                <div class="form-check">
+                                    <input
+                                        id="isDangerous"
+                                        name="sensitive_data"
+                                        type="radio"
+                                        value="True"
+                                        {% if selected_sensitive_data == 'True' %}
+                                            checked
+                                        {% endif %}
+                                        class="form-check-input">
+                                    <label for="isDangerous" class="form-check-label">True</label>
+                                </div>
+                                <div class="form-check">
+                                    <input
+                                        id="isNotDangerous"
+                                        name="sensitive_data"
+                                        type="radio"
+                                        value="False"
+                                        {% if selected_sensitive_data == 'False' %}
+                                            checked
+                                        {% endif %}
+                                        class="form-check-input">
+                                    <label for="isNotDangerous" class="form-check-label">False</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row align-items-center g-3 mb-4">
+                            <label for="location" class="col-12 col-md-4">
+                                <strong>
+                                    Location
+                                </strong>
+                            </label>
+                            <div class="col-12 col-md-8">
+                                <select id="location" name="id_location" class="form-control">
+                                    <option
+                                        value=""
+                                        {% if not selected_location %}
+                                            selected
+                                        {% endif %}>
+                                        Select a location
+                                    </option>
+                                    {% for location in locations %}
+                                        <option
+                                            value="{{ location.id_location }}"
+                                            {% if location.id_location == selected_location %}
+                                                selected
+                                            {%endif%}>
+                                            {{ location.location_name }}
+                                        </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row align-items-center g-3">
+                            <label for="type" class="col-12 col-md-4">
+                                <strong>
+                                    Type
+                                </strong>
+                            </label>
+                            <div class="col-12 col-md-8">
+                                <select id="type" name="type" class="form-control">
+                                    <option
+                                        value=""
+                                        {% if not selected_type %}selected{% endif %}>
+                                        Select a type
+                                    </option>
+                                    {% for type in types %}
+                                        <option
+                                            value="{{ type }}"
+                                            {% if type == selected_type %}selected{% endif %}>
+                                            {{ type.upper() }}
+                                        </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <a
+                            href="{{ url_for('document_controller.show_document') }}"
+                            class="btn btn-danger btn-sm">
+                            Reset
+                        </a>
+                        <button
+                            type="submit"
+                            class="btn btn-success btn-sm">
+                            Submit
+                        </button>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>

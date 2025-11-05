@@ -1,0 +1,36 @@
+<div class="modal fade" id="addDocumentModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Add a document</h1>
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close">
+                </button>
+            </div>
+            <form method="post" action="/document/add" enctype="multipart/form-data">
+                <fieldset>
+                    <div class="modal-body">
+                        <input
+                            type="file"
+                            name="file"
+                            class="form-control w-100 rounded-pill text-center">
+                    </div>
+                    <div class="modal-footer">
+                        <input
+                            type="reset"
+                            value="Reset"
+                            class="btn btn-danger btn-sm">
+                        <button
+                            type="submit"
+                            class="btn btn-success btn-sm">
+                            Submit
+                        </button>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>

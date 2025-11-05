@@ -1,0 +1,115 @@
+{%extends "index.html"%}
+
+{%block body%}
+    <p style="font-weight:800; padding-left: 20px;">Manage Staff</p>
+    <div class="container">
+        <a href="{{ url_for('hr_controller.add_form') }}" class="btn" style="margin-left:1117px; width: 155px; height: 35x; 
+                                                                                border-radius: 10px; background-color: rgb(26, 166, 97);
+                                                                                color: white; font-weight: 600;">Add an employee</a>
+        <table class="table table-sm" style="width: 100%;">
+            <thead class="table" style="color:white; font-weight: 400; background-color: rgb(26, 96, 123);">
+              <tr>
+                <th  class="p-2" scope="col">Name</th>
+                <th  class="p-2" scope="col">Email address</th>
+                <th  class="p-2" scope="col">Departement</th>
+                <th  class="p-2" scope="col"> Region </th>
+                <th  class="p-2" scope="col">Phone</th>                
+                <th  class="p-2" scope="col">Address</th>
+                <th  class="p-2" scope="col">Birthdate</th>
+                <th  class="p-2" scope="col">Score</th>
+                <th  class="p-2" scope="col">Password</th>
+                <th  class="p-2" scope="col">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+                {%for employee in employees%}
+                <tr>
+                    <td  class="p-2"> <img src="{{url_for('static', filename='images/')}}person_icon.png" class="rounded-circle border border-secondary"
+                        style="width: 30px; height: 30px;" alt="Photo de profil"> {{ employee.firstname }} {{ employee.lastname }} </td>
+                    <td  class="p-2">{{ employee.mail }}</td>
+                    <td  class="p-2">{{ employee.department_name }}</td>
+                    <td  class="p-2"> {{employee.location_name}} </td>
+                    <td  class="p-2">{{ employee.phone }}</td>
+                    <td  class="p-2">{{ employee.address }}</td>
+                    <td  class="p-2">{{ employee.birthday }}</td>
+                    {% if employee.score == None %}
+                        <td  class="p-2">0</td>
+                    {% else %}
+                    <td  class="p-2">{{employee.score}}</td>
+                    {% endif%}
+                    <td  class="p-2">***********</td>
+                    <td  class="p-2">
+                        <div class="d-flex align-items-start">
+                            <a href="/add_employee_form/{{ employee.id_employee }}"><button type="button" class="btn btn-primary btn-sm"> 
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                    <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                                    <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
+                                  </svg>
+                            </button></a>
+                            
+                            <a href="{{url_for('hr_controller.delete_employee', id=employee.id_employee)}}"><button type="button" class="btn btn-danger btn-sm">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
+                                    <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
+                                </svg>
+                            </button></a>
+                            
+                        </div>
+                    </td>
+                </tr>
+                {%endfor%}
+            </tbody>
+          </table>
+
+
+
+
+          <br>
+          <br>
+          <p><div style="font-weight:800;">Manage Data Types</div></p>
+          <div class="container">
+              <table class="table table-sm">
+                  <thead class="table" style="color:white; font-weight: 400; background-color: rgb(26, 96, 123);">
+                    <a href="{{  url_for('hr_controller.add_data_type_form')  }}" class="btn " style="margin-left:1082px; width: 165px; height: 35x;
+                                                                                                border-radius: 10px; background-color: rgba(24, 166, 97);
+                                                                                                color: white; font-weight: 600;">Add An Data Type</a>
+                    <tr>
+                      <th  class="p-2" scope="col">Name</th>
+                      <th  class="p-2" scope="col">Function name</th>
+                      <th  class="p-2" scope="col">Parameter</th>
+                      <th  class="p-2" scope="col">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for data_type in data_types %}
+                      <tr>
+                        <td  class="p-2">{{ data_type.type_name }}</td>
+                        <td  class="p-2">{{ data_type.algorithm_name }}</td>
+                        <td  class="p-2">{{ data_type.parameter }}</td>
+                            
+                        <td  class="p-2">
+                            <div class="d-flex align-items-start">
+                                <a href="/update_data_type_form/{{data_type.id_data_type}}"><button type="button" class="btn btn-primary btn-sm"> 
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                        <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                                        <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
+                                      </svg>
+                                </button>
+                                </a>
+                                <a href="/delete_data_type/{{data_type.type_name}}">
+                                <button type="button" class="btn btn-danger btn-sm">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
+                                        <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
+                                    </svg>
+                                </button></a>
+                            </div>
+                        
+
+                        </td>
+                    {% endfor %}
+                      </tr>  
+                  </tbody>
+                </table>    
+    
+{%endblock%}
